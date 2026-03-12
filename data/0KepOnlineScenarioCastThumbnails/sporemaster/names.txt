@@ -1,8 +1,11 @@
+root~	0x0
+locale~	0x2fabf01
 graphics_atlas~	0x31a44893
 ui_packedLayout~	0x40464200
 NoGroup_ScenarioEditModeBehaviorChatter-00
-0KepOnlineScenarioCastThumbnails-Window-00
-0KepOnlineScenarioCastThumbnails-Window
+0KepOnlineScenarioCastThumbnails
+0KepOnlineScenarioCastThumbnails-00
+0KepOnlineScenarioCastThumbnails-UI
 0KepOnlineScenarioCastThumbnails-Window_Normal
 0KepOnlineScenarioCastThumbnails-Window_Skinned
 0KepOnlineScenarioCastThumbnails-Buttons

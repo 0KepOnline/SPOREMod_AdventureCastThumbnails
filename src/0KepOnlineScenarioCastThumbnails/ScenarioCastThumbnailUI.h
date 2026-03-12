@@ -4,7 +4,7 @@
 class ScenarioCastThumbnailUI : public UTFWin::IWinProc
 {
 public:
-	static const uint32_t SPUI_WINDOW = id(PrivateName("Window"));
+	static const uint32_t SPUI = id(PrivateName("UI"));
 
 	static const uint32_t WIN_THUMBNAIL_UI_NORMAL = id(PrivateName("Window_Normal"));
 	static const uint32_t WIN_THUMBNAIL_UI_SKINNED = id(PrivateName("Window_Skinned"));

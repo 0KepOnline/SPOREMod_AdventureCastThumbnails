@@ -10,8 +10,7 @@ using namespace UTFWin;
 
 bool ScenarioCastThumbnailUI::HandleUIMessage(IWindow* win, const Message& msg)
 {
-	if (msg.eventType != kMsgButtonClick ||
-		!currentTarget)
+	if (msg.eventType != kMsgButtonClick || !currentTarget)
 		return false;
 
 	switch (win->GetControlID())
@@ -36,7 +35,7 @@ void ScenarioCastThumbnailUI::InitializeUI(
 
 	if (!win->FindWindowByID(WIN_SKINNING))
 	{
-		if (!skinningLayout.LoadByID(SPUI_WINDOW))
+		if (!skinningLayout.LoadByID(SPUI))
 			return;
 		skinningLayout.SetParentWindow(win);
 		skinningWinNormal = skinningLayout.FindWindowByID(WIN_THUMBNAIL_UI_NORMAL);
