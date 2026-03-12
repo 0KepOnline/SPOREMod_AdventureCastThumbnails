@@ -1,10 +1,8 @@
-ui_packedLayout~	0x0
+graphics_atlas~	0x31a44893
+ui_packedLayout~	0x40464200
+NoGroup_ScenarioEditModeBehaviorChatter-00
 0KepOnlineScenarioCastThumbnails-Window-00
 0KepOnlineScenarioCastThumbnails-Window
-0
-ui_packedLayout~	0x40464200
 0KepOnlineScenarioCastThumbnails-Buttons
-NoGroup_ScenarioEditModeBehaviorChatter-00
-graphics_atlas~	0x31a44893
-~	0x811c9dc5
-0KepOnlineCastThumbnails-RemoveSkinning
+0KepOnlineScenarioCastThumbnails-RemoveSkinning
+0KepOnlineScenarioCastThumbnails-Buttons_Background
