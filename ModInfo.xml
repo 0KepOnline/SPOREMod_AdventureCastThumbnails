@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<mod description="This mod lets you customize thumbnails of your cast in the palette of the Adventure Editor." displayName="0KepOnline's Scenario Cast Thumbnails" dllsBuild="$SPOREMOD_DLLS_BUILD" hasCustomInstaller="false" installerSystemVersion="1.0.1.2" isExperimental="$SPOREMOD_EXPERIMENTAL" unique="0KepOnlineScenarioCastThumbnails">
+<mod description="This mod lets you customize thumbnails of your cast in the palette of the Adventure Editor." displayName="0KepOnline's Adventure Cast Thumbnails" dllsBuild="$SPOREMOD_DLLS_BUILD" hasCustomInstaller="false" installerSystemVersion="1.0.1.2" isExperimental="$SPOREMOD_EXPERIMENTAL" unique="0KepOnlineScenarioCastThumbnails">
   <prerequisite game="GalacticAdventures">0KepOnlineScenarioCastThumbnails.package</prerequisite>
   <prerequisite>0KepOnlineScenarioCastThumbnails.dll</prerequisite>
 </mod>
