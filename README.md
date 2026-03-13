@@ -1,6 +1,6 @@
 <div align="center">
 
-![0KepOnline's Adventure Cast Thumbnails](0KepOnlineScenarioCastThumbnails.svg)
+![0KepOnline's Adventure Cast Thumbnails](0KepOnlineScenarioCastThumbnails.png)
 
 </div>
 
