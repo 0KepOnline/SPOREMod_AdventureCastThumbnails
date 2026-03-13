@@ -15,4 +15,4 @@ All the adventures made with it are share-safe.
  (additional translation credits can be found in `.locale` files [here](./data/0KepOnlineScenarioCastThumbnails/root~/))
 
  **Special thanks to:**
- * **[emd4600](https://github.com/emd4600)**	(creating [SporeModder FX](https://github.com/emd4600/SporeModder-FX) and [Spore ModAPI](https://github.com/emd4600/Spore-ModAPI))
+ * **[emd4600](https://github.com/emd4600)**	(creating [SporeModder FX](https://github.com/Spore-Community/SporeModder-FX) and [Spore ModAPI](https://github.com/Spore-Community/Spore-ModAPI))
