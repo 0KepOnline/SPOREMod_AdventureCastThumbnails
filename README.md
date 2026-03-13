@@ -1,7 +1,5 @@
 <div align="center">
-
-![0KepOnline's Adventure Cast Thumbnails](0KepOnlineScenarioCastThumbnails.png)
-
+    <img alt="0KepOnline's Adventure Cast Thumbnails" src="0KepOnlineScenarioCastThumbnails.png" width="512" />
 </div>
 
 # 0KepOnline's Adventure Cast Thumbnails
