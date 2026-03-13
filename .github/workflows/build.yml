@@ -110,6 +110,10 @@ jobs:
       - name: Build SMFX Project
         run: |
           cd "SporeModder FX"
+          NAMES="../${{ matrix.project.dir }}/sporemaster/names.txt"
+          if [ -f "$NAMES" ]; then
+            cat "$NAMES" >> "reg_file.txt"
+          fi
           java -jar SporeModderFX.jar pack "../${{ matrix.project.dir }}" "../Packages/"
       - name: Upload Packages
         uses: actions/upload-artifact@v4
