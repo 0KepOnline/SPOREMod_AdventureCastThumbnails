@@ -8,7 +8,7 @@ on:
 
 env:
   # Build Packages Variables
-  SPORE_MODDER_FX_FILE: 'SporeModderFX.zip'
+  SPORE_MODDER_FX_FILE: 'SporeModder.FX.zip'
 
   # Build DLLs Variables
   SPORE_MODAPI_FILE: ' SporeModAPIdlls.zip '
