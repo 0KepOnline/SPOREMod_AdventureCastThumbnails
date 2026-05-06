@@ -2,16 +2,37 @@
 #include "stdafx.h"
 #include "ScenarioCastThumbnailUI.h"
 
+using namespace App;
 using namespace UTFWin;
 using namespace Simulator;
+
+static map<IWindow*, ScenarioCastThumbnailUI*> castThumbnailUIWinMap;
+
+class cScenarioEditModeScriptUI {};
+
+
 
 void Initialize() {}
 
 void Dispose() {}
 
-static map<IWindow*, ScenarioCastThumbnailUI*> castThumbnailUIWinMap;
 
-class cScenarioEditModeScriptUI {};
+void DisposeCastThumbnailUI(ScenarioCastThumbnailUI* castThumbnailUI)
+{
+	for (
+		map<IWindow*, ScenarioCastThumbnailUI*>::iterator castThumbnailUIWinMapIterator =
+		castThumbnailUIWinMap.begin();
+		castThumbnailUIWinMapIterator != castThumbnailUIWinMap.end();
+		++castThumbnailUIWinMapIterator
+		)
+	{
+		if (castThumbnailUIWinMapIterator->second == castThumbnailUI)
+		{
+			castThumbnailUIWinMap.erase(castThumbnailUIWinMapIterator);
+			break;
+		}
+	}
+}
 
 member_detour(cScenarioEditModeScriptUI_ShowBehaviorEditUI, cScenarioEditModeScriptUI, void())
 {
@@ -30,24 +51,24 @@ member_detour(cScenarioEditModeScriptUI_ShowBehaviorEditUI, cScenarioEditModeScr
 				ScenarioObjectType::ScenarioFixedObjectGameplay)
 			return;
 
-		IWindow* activeWin = *(IWindow**)(thisPtr + 0x18);
-		if (!activeWin)
+		IWindow* behaviorEditUIWin = *(IWindow**)(thisPtr + 0x18);
+		if (!behaviorEditUIWin)
 			return;
 		
-		IWindow* castPreviewWin = activeWin->
+		IWindow* castPreviewWin = behaviorEditUIWin->
 			FindWindowByID(ScenarioCastThumbnailUI::WIN_CAST_PREVIEW);
 		if (!castPreviewWin)
 			return;
 
 		ScenarioCastThumbnailUI* castThumbnailUI = nullptr;
-		map<IWindow*, ScenarioCastThumbnailUI*>::iterator castThumbnailUIIterator =
-			castThumbnailUIWinMap.find(activeWin);
-		if (castThumbnailUIIterator != castThumbnailUIWinMap.end())
-			castThumbnailUI = castThumbnailUIIterator->second;
+		map<IWindow*, ScenarioCastThumbnailUI*>::iterator castThumbnailUIWinMapIterator =
+			castThumbnailUIWinMap.find(behaviorEditUIWin);
+		if (castThumbnailUIWinMapIterator != castThumbnailUIWinMap.end())
+			castThumbnailUI = castThumbnailUIWinMapIterator->second;
 		else
 		{
 			castThumbnailUI = new ScenarioCastThumbnailUI();
-			castThumbnailUIWinMap[activeWin] = castThumbnailUI;
+			castThumbnailUIWinMap[behaviorEditUIWin] = castThumbnailUI;
 		}
 		castThumbnailUI->InitializeUI(castPreviewWin, scenarioClass, index);
 	}

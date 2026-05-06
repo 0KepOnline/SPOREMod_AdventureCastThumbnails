@@ -8,6 +8,25 @@ using namespace UTFWin;
 
 #define EmptyKey ResourceKey(0, 0, 0)
 
+
+
+ScenarioCastThumbnailUI::ScenarioCastThumbnailUI() {}
+
+ScenarioCastThumbnailUI::~ScenarioCastThumbnailUI() { DisposeCastThumbnailUI(this); }
+
+int ScenarioCastThumbnailUI::AddRef() { return DefaultRefCounted::AddRef(); }
+
+int ScenarioCastThumbnailUI::Release() { return DefaultRefCounted::Release(); }
+
+void* ScenarioCastThumbnailUI::Cast(uint32_t type) const
+{
+	return (type == IWinProc::TYPE)
+		? (IWinProc*)this
+		: nullptr;
+}
+
+int ScenarioCastThumbnailUI::GetEventFlags() const { return kEventFlagBasicInput; }
+
 bool ScenarioCastThumbnailUI::HandleUIMessage(IWindow* win, const Message& msg)
 {
 	if (msg.eventType != kMsgButtonClick || !currentTarget)
@@ -23,6 +42,7 @@ bool ScenarioCastThumbnailUI::HandleUIMessage(IWindow* win, const Message& msg)
 			return false;
 	}
 }
+
 
 void ScenarioCastThumbnailUI::InitializeUI(
 	IWindow* win,

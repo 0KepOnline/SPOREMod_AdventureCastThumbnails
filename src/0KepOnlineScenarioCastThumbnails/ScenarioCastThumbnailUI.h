@@ -1,7 +1,9 @@
 #pragma once
 #include "Global.h"
 
-class ScenarioCastThumbnailUI : public UTFWin::IWinProc
+
+
+class ScenarioCastThumbnailUI : public UTFWin::IWinProc, public DefaultRefCounted
 {
 public:
 	static const uint32_t SPUI = id(PrivateName("UI"));
@@ -18,10 +20,13 @@ public:
 	static const uint32_t MSG_SHOW_BEHAVIOR_EDIT_UI = 0x7465518;
 	static const uint32_t MSG_HIDE_BEHAVIOR_EDIT_UI = 0x7d11fe0;
 
-	int AddRef() override { return 1; }
-	int Release() override { return 1; }
-	void* Cast(uint32_t type) const override { return nullptr; }
-	int GetEventFlags() const override { return UTFWin::kEventFlagBasicInput; }
+	ScenarioCastThumbnailUI();
+	~ScenarioCastThumbnailUI();
+
+	int AddRef() override;
+	int Release() override;
+	void* Cast(uint32_t type) const override;
+	int GetEventFlags() const override;
 	bool HandleUIMessage(UTFWin::IWindow* win, const UTFWin::Message& msg) override;
 
 	void InitializeUI(UTFWin::IWindow* win, Simulator::cScenarioClass* target, int index);
@@ -31,11 +36,12 @@ private:
 	UTFWin::UILayout skinningLayout;
 	UTFWin::IButton* skinningRemoveBtn = nullptr;
 	Simulator::cScenarioClass* currentTarget = nullptr;
-	int currentTargetIndex;
+	int currentTargetIndex = -1;
 
 	void UpdateUI(UTFWin::IWindow* win);
-	ResourceKey* ScenarioCastThumbnailUI::GetSkinningKey();
+	ResourceKey* GetSkinningKey();
 	void UpdateDefaultThumbnail();
 	void RemoveSkinning();
 };
 
+void DisposeCastThumbnailUI(ScenarioCastThumbnailUI* castThumbnailUI);
