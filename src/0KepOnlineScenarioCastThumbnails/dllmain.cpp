@@ -21,10 +21,10 @@ void DisposeCastThumbnailUI(ScenarioCastThumbnailUI* castThumbnailUI)
 {
 	for (
 		map<IWindow*, ScenarioCastThumbnailUI*>::iterator castThumbnailUIWinMapIterator =
-		castThumbnailUIWinMap.begin();
+			castThumbnailUIWinMap.begin();
 		castThumbnailUIWinMapIterator != castThumbnailUIWinMap.end();
 		++castThumbnailUIWinMapIterator
-		)
+	)
 	{
 		if (castThumbnailUIWinMapIterator->second == castThumbnailUI)
 		{
