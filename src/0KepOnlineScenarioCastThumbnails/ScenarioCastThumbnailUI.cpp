@@ -18,9 +18,9 @@ ScenarioCastThumbnailUI::~ScenarioCastThumbnailUI() { castThumbnailUI = nullptr;
 
 ScenarioCastThumbnailUI* ScenarioCastThumbnailUI::Get()
 {
-	if (!castThumbnailUI)
-		castThumbnailUI = new ScenarioCastThumbnailUI();
-	return castThumbnailUI;
+    if (!castThumbnailUI)
+        castThumbnailUI = new ScenarioCastThumbnailUI();
+    return castThumbnailUI;
 }
 
 
@@ -30,112 +30,112 @@ int ScenarioCastThumbnailUI::Release() { return DefaultRefCounted::Release(); }
 
 void* ScenarioCastThumbnailUI::Cast(uint32_t type) const
 {
-	return (type == IWinProc::TYPE)
-		? (IWinProc*)this
-		: nullptr;
+    return (type == IWinProc::TYPE)
+        ? (IWinProc*)this
+        : nullptr;
 }
 
 int ScenarioCastThumbnailUI::GetEventFlags() const { return kEventFlagBasicInput; }
 
 bool ScenarioCastThumbnailUI::HandleUIMessage(IWindow* win, const Message& msg)
 {
-	if (msg.eventType != kMsgButtonClick || !currentTarget)
-		return false;
+    if (msg.eventType != kMsgButtonClick || !currentTarget)
+        return false;
 
-	switch (win->GetControlID())
-	{
-		case BTN_SKINNING_REMOVE:
-			RemoveSkinning();
-			PlayAudio(SND_SKINNING_REMOVE);
-			return true;
-		default:
-			return false;
-	}
+    switch (win->GetControlID())
+    {
+        case BTN_SKINNING_REMOVE:
+            RemoveSkinning();
+            PlayAudio(SND_SKINNING_REMOVE);
+            return true;
+        default:
+            return false;
+    }
 }
 
 
 void ScenarioCastThumbnailUI::InitializeUI(
-	IWindow* win,
-	cScenarioClass* target,
-	int index
+    IWindow* win,
+    cScenarioClass* target,
+    int index
 )
 {
-	currentTarget = target;
-	currentTargetIndex = index;
+    currentTarget = target;
+    currentTargetIndex = index;
 
-	if (!win->FindWindowByID(WIN_SKINNING))
-	{
-		if (!skinningLayout.LoadByID(SPUI))
-			return;
-		skinningLayout.SetParentWindow(win);
-		skinningWinNormal = skinningLayout.FindWindowByID(WIN_THUMBNAIL_UI_NORMAL);
-		skinningWinSkinned = skinningLayout.FindWindowByID(WIN_THUMBNAIL_UI_SKINNED);
-		if (!skinningWinNormal || !skinningWinSkinned)
-			return;
-		skinningRemoveBtn = (IButton*)skinningWinSkinned->
-			FindWindowByID(BTN_SKINNING_REMOVE);
-		((IWindow*)skinningRemoveBtn)->AddWinProc(this);
-	}
-	UpdateUI(win);
+    if (!win->FindWindowByID(WIN_SKINNING))
+    {
+        if (!skinningLayout.LoadByID(SPUI))
+            return;
+        skinningLayout.SetParentWindow(win);
+        skinningWinNormal = skinningLayout.FindWindowByID(WIN_THUMBNAIL_UI_NORMAL);
+        skinningWinSkinned = skinningLayout.FindWindowByID(WIN_THUMBNAIL_UI_SKINNED);
+        if (!skinningWinNormal || !skinningWinSkinned)
+            return;
+        skinningRemoveBtn = (IButton*)skinningWinSkinned->
+            FindWindowByID(BTN_SKINNING_REMOVE);
+        ((IWindow*)skinningRemoveBtn)->AddWinProc(this);
+    }
+    UpdateUI(win);
 }
 
 void ScenarioCastThumbnailUI::UpdateUI(IWindow* win)
 {
-	bool isSkinned = *GetSkinningKey() != EmptyKey;
-	if (isSkinned)
-		UpdateDefaultThumbnail();
-	skinningWinNormal->SetFlag(kWinFlagVisible, !isSkinned);
-	skinningWinSkinned->SetFlag(kWinFlagVisible, isSkinned);
+    bool isSkinned = *GetSkinningKey() != EmptyKey;
+    if (isSkinned)
+        UpdateDefaultThumbnail();
+    skinningWinNormal->SetFlag(kWinFlagVisible, !isSkinned);
+    skinningWinSkinned->SetFlag(kWinFlagVisible, isSkinned);
 }
 
 ResourceKey* ScenarioCastThumbnailUI::GetSkinningKey()
 {
-	return (currentTarget)
-		? &currentTarget->mGameplayObjectGfxOverrideAsset.mKey
-		: nullptr;
+    return (currentTarget)
+        ? &currentTarget->mGameplayObjectGfxOverrideAsset.mKey
+        : nullptr;
 }
 
 void ScenarioCastThumbnailUI::UpdateDefaultThumbnail()
 {
-	ResourceKey defaultThumbnail;
-	CALL(
-		Address(ModAPI::ChooseAddress(0xef92f0, 0xf24fe0)),
-		void,
-		Args(ResourceKey*, ResourceKey*),
-		Args(&currentTarget->mAsset.mKey, &defaultThumbnail)
-	);
-	Image::SetBackgroundByKey(
-		skinningWinSkinned->FindWindowByID(WIN_SKINNING_DEFAULT_THUMBNAIL),
-		defaultThumbnail
-	);
+    ResourceKey defaultThumbnail;
+    CALL(
+        Address(ModAPI::ChooseAddress(0xef92f0, 0xf24fe0)),
+        void,
+        Args(ResourceKey*, ResourceKey*),
+        Args(&currentTarget->mAsset.mKey, &defaultThumbnail)
+    );
+    Image::SetBackgroundByKey(
+        skinningWinSkinned->FindWindowByID(WIN_SKINNING_DEFAULT_THUMBNAIL),
+        defaultThumbnail
+    );
 }
 
 void ScenarioCastThumbnailUI::RemoveSkinning()
 {
-	ResourceKey* skinningKey = GetSkinningKey();
-	if (*skinningKey != EmptyKey)
-	{
-		cScenarioDataPtr scenarioData = ScenarioMode.mpData;
-		scenarioData->StartHistoryEntry();
-		*skinningKey = EmptyKey;
-		currentTarget->mGfxOverrideType = ScenarioGfxOverrideType::Invisible;
-		scenarioData->CommitHistoryEntry();
+    ResourceKey* skinningKey = GetSkinningKey();
+    if (*skinningKey != EmptyKey)
+    {
+        cScenarioDataPtr scenarioData = ScenarioMode.mpData;
+        scenarioData->StartHistoryEntry();
+        *skinningKey = EmptyKey;
+        currentTarget->mGfxOverrideType = ScenarioGfxOverrideType::Invisible;
+        scenarioData->CommitHistoryEntry();
 
-		IMessageManager& messageManager = MessageManager;
-		messageManager.MessageSend(
-			MSG_UPDATE_CAST_PALETTE,
-			(void*)currentTargetIndex,
-			nullptr
-		);
-		messageManager.MessageSend(
-			MSG_HIDE_BEHAVIOR_EDIT_UI,
-			nullptr,
-			nullptr
-		);
-		messageManager.MessageSend(
-			MSG_SHOW_BEHAVIOR_EDIT_UI,
-			&currentTargetIndex,
-			nullptr
-		);
-	}
+        IMessageManager& messageManager = MessageManager;
+        messageManager.MessageSend(
+            MSG_UPDATE_CAST_PALETTE,
+            (void*)currentTargetIndex,
+            nullptr
+        );
+        messageManager.MessageSend(
+            MSG_HIDE_BEHAVIOR_EDIT_UI,
+            nullptr,
+            nullptr
+        );
+        messageManager.MessageSend(
+            MSG_SHOW_BEHAVIOR_EDIT_UI,
+            &currentTargetIndex,
+            nullptr
+        );
+    }
 }
