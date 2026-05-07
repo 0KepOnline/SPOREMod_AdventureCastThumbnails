@@ -20,10 +20,8 @@ public:
 	static const uint32_t MSG_SHOW_BEHAVIOR_EDIT_UI = 0x7465518;
 	static const uint32_t MSG_HIDE_BEHAVIOR_EDIT_UI = 0x7d11fe0;
 
-	static ScenarioCastThumbnailUI* castThumbnailUI;
-
-	ScenarioCastThumbnailUI();
 	~ScenarioCastThumbnailUI();
+	static ScenarioCastThumbnailUI* Get();
 
 	int AddRef() override;
 	int Release() override;
@@ -33,12 +31,16 @@ public:
 
 	void InitializeUI(UTFWin::IWindow* win, Simulator::cScenarioClass* target, int index);
 private:
+	static ScenarioCastThumbnailUI* castThumbnailUI;
+
 	UTFWin::IWindow* skinningWinNormal = nullptr;
 	UTFWin::IWindow* skinningWinSkinned = nullptr;
 	UTFWin::UILayout skinningLayout;
 	UTFWin::IButton* skinningRemoveBtn = nullptr;
 	Simulator::cScenarioClass* currentTarget = nullptr;
 	int currentTargetIndex = -1;
+
+	ScenarioCastThumbnailUI();
 
 	void UpdateUI(UTFWin::IWindow* win);
 	ResourceKey* GetSkinningKey();

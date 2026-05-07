@@ -16,6 +16,14 @@ ScenarioCastThumbnailUI::ScenarioCastThumbnailUI() {}
 
 ScenarioCastThumbnailUI::~ScenarioCastThumbnailUI() { castThumbnailUI = nullptr; }
 
+ScenarioCastThumbnailUI* ScenarioCastThumbnailUI::Get()
+{
+	if (!castThumbnailUI)
+		castThumbnailUI = new ScenarioCastThumbnailUI();
+	return castThumbnailUI;
+}
+
+
 int ScenarioCastThumbnailUI::AddRef() { return DefaultRefCounted::AddRef(); }
 
 int ScenarioCastThumbnailUI::Release() { return DefaultRefCounted::Release(); }

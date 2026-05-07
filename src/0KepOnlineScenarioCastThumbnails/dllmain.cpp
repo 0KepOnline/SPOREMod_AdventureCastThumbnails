@@ -41,9 +41,7 @@ member_detour(cScenarioEditModeScriptUI_ShowBehaviorEditUI, cScenarioEditModeScr
 		if (!castPreviewWin)
 			return;
 
-		ScenarioCastThumbnailUI*& castThumbnailUI = ScenarioCastThumbnailUI::castThumbnailUI;
-		if (castThumbnailUI == nullptr)
-			castThumbnailUI = new ScenarioCastThumbnailUI();
+		ScenarioCastThumbnailUI* castThumbnailUI = ScenarioCastThumbnailUI::Get();
 		castThumbnailUI->InitializeUI(castPreviewWin, scenarioClass, index);
 	}
 };
