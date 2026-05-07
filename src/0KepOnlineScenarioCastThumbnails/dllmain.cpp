@@ -6,8 +6,6 @@ using namespace App;
 using namespace UTFWin;
 using namespace Simulator;
 
-static map<IWindow*, ScenarioCastThumbnailUI*> castThumbnailUIWinMap;
-
 class cScenarioEditModeScriptUI {};
 
 
@@ -16,23 +14,6 @@ void Initialize() {}
 
 void Dispose() {}
 
-
-void DisposeCastThumbnailUI(ScenarioCastThumbnailUI* castThumbnailUI)
-{
-	for (
-		map<IWindow*, ScenarioCastThumbnailUI*>::iterator castThumbnailUIWinMapIterator =
-			castThumbnailUIWinMap.begin();
-		castThumbnailUIWinMapIterator != castThumbnailUIWinMap.end();
-		++castThumbnailUIWinMapIterator
-	)
-	{
-		if (castThumbnailUIWinMapIterator->second == castThumbnailUI)
-		{
-			castThumbnailUIWinMap.erase(castThumbnailUIWinMapIterator);
-			break;
-		}
-	}
-}
 
 member_detour(cScenarioEditModeScriptUI_ShowBehaviorEditUI, cScenarioEditModeScriptUI, void())
 {
@@ -60,16 +41,9 @@ member_detour(cScenarioEditModeScriptUI_ShowBehaviorEditUI, cScenarioEditModeScr
 		if (!castPreviewWin)
 			return;
 
-		ScenarioCastThumbnailUI* castThumbnailUI = nullptr;
-		map<IWindow*, ScenarioCastThumbnailUI*>::iterator castThumbnailUIWinMapIterator =
-			castThumbnailUIWinMap.find(behaviorEditUIWin);
-		if (castThumbnailUIWinMapIterator != castThumbnailUIWinMap.end())
-			castThumbnailUI = castThumbnailUIWinMapIterator->second;
-		else
-		{
+		ScenarioCastThumbnailUI*& castThumbnailUI = ScenarioCastThumbnailUI::castThumbnailUI;
+		if (castThumbnailUI == nullptr)
 			castThumbnailUI = new ScenarioCastThumbnailUI();
-			castThumbnailUIWinMap[behaviorEditUIWin] = castThumbnailUI;
-		}
 		castThumbnailUI->InitializeUI(castPreviewWin, scenarioClass, index);
 	}
 };

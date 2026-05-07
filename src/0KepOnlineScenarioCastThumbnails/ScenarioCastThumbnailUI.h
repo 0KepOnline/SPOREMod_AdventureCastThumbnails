@@ -20,6 +20,8 @@ public:
 	static const uint32_t MSG_SHOW_BEHAVIOR_EDIT_UI = 0x7465518;
 	static const uint32_t MSG_HIDE_BEHAVIOR_EDIT_UI = 0x7d11fe0;
 
+	static ScenarioCastThumbnailUI* castThumbnailUI;
+
 	ScenarioCastThumbnailUI();
 	~ScenarioCastThumbnailUI();
 
@@ -43,5 +45,3 @@ private:
 	void UpdateDefaultThumbnail();
 	void RemoveSkinning();
 };
-
-void DisposeCastThumbnailUI(ScenarioCastThumbnailUI* castThumbnailUI);

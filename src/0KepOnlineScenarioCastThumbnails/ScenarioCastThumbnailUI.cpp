@@ -8,11 +8,13 @@ using namespace UTFWin;
 
 #define EmptyKey ResourceKey(0, 0, 0)
 
+ScenarioCastThumbnailUI* ScenarioCastThumbnailUI::castThumbnailUI = nullptr;
+
 
 
 ScenarioCastThumbnailUI::ScenarioCastThumbnailUI() {}
 
-ScenarioCastThumbnailUI::~ScenarioCastThumbnailUI() { DisposeCastThumbnailUI(this); }
+ScenarioCastThumbnailUI::~ScenarioCastThumbnailUI() { castThumbnailUI = nullptr; }
 
 int ScenarioCastThumbnailUI::AddRef() { return DefaultRefCounted::AddRef(); }
 
@@ -80,9 +82,9 @@ void ScenarioCastThumbnailUI::UpdateUI(IWindow* win)
 
 ResourceKey* ScenarioCastThumbnailUI::GetSkinningKey()
 {
-	if (!currentTarget)
-		return nullptr;
-	return &currentTarget->mGameplayObjectGfxOverrideAsset.mKey;
+	return (currentTarget)
+		? &currentTarget->mGameplayObjectGfxOverrideAsset.mKey
+		: nullptr;
 }
 
 void ScenarioCastThumbnailUI::UpdateDefaultThumbnail()
