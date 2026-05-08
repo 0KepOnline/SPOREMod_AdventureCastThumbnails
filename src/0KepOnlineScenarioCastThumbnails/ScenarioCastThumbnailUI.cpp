@@ -30,9 +30,11 @@ int ScenarioCastThumbnailUI::Release() { return DefaultRefCounted::Release(); }
 
 void* ScenarioCastThumbnailUI::Cast(uint32_t type) const
 {
-    return (type == IWinProc::TYPE)
-        ? (IWinProc*)this
-        : nullptr;
+    CLASS_CAST(ScenarioCastThumbnailUI);
+
+    CLASS_CAST(Object);
+    CLASS_CAST(IWinProc);
+    return nullptr;
 }
 
 int ScenarioCastThumbnailUI::GetEventFlags() const { return kEventFlagBasicInput; }
