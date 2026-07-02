@@ -25,14 +25,14 @@ member_detour(cScenarioEditModeScriptUI_ShowBehaviorEditUI, cScenarioEditModeScr
         if (!scenarioData)
             return;
 
-        uint32_t index = *(uint32_t*)(thisPtr + 0x20);
+        uint32_t index = (uint32_t)field(thisPtr, 0x20);
         cScenarioClass* scenarioClass = scenarioData->GetClass(index);
         if (!scenarioClass
             || cScenarioClass::GetObjectType(*(ResourceKey*)scenarioClass) ==
                 ScenarioObjectType::ScenarioFixedObjectGameplay)
             return;
 
-        IWindow* behaviorEditUIWin = *(IWindow**)(thisPtr + 0x18);
+        IWindow* behaviorEditUIWin = (IWindow*)field(thisPtr, 0x18);
         if (!behaviorEditUIWin)
             return;
         

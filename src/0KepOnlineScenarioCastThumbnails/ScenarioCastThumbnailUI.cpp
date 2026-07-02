@@ -103,8 +103,8 @@ void ScenarioCastThumbnailUI::UpdateDefaultThumbnail()
     CALL(
         Address(ModAPI::ChooseAddress(0xef92f0, 0xf24fe0)),
         void,
-        Args(ResourceKey*, ResourceKey*),
-        Args(&currentTarget->mAsset.mKey, &defaultThumbnail)
+        Args(cScenarioClass*, ResourceKey*),
+        Args(currentTarget, &defaultThumbnail)
     );
     Image::SetBackgroundByKey(
         skinningWinSkinned->FindWindowByID(WIN_SKINNING_DEFAULT_THUMBNAIL),
@@ -115,29 +115,28 @@ void ScenarioCastThumbnailUI::UpdateDefaultThumbnail()
 void ScenarioCastThumbnailUI::RemoveSkinning()
 {
     ResourceKey* skinningKey = GetSkinningKey();
-    if (*skinningKey != EmptyKey)
-    {
-        cScenarioDataPtr scenarioData = ScenarioMode.mpData;
-        scenarioData->StartHistoryEntry();
-        *skinningKey = EmptyKey;
-        currentTarget->mGfxOverrideType = ScenarioGfxOverrideType::Invisible;
-        scenarioData->CommitHistoryEntry();
+    if (!skinningKey || *skinningKey == EmptyKey)
+        return;
+    cScenarioDataPtr scenarioData = ScenarioMode.mpData;
+    scenarioData->StartHistoryEntry();
+    *skinningKey = EmptyKey;
+    currentTarget->mGfxOverrideType = ScenarioGfxOverrideType::Invisible;
+    scenarioData->CommitHistoryEntry();
 
-        IMessageManager& messageManager = MessageManager;
-        messageManager.MessageSend(
-            MSG_UPDATE_CAST_PALETTE,
-            (void*)currentTargetIndex,
-            nullptr
-        );
-        messageManager.MessageSend(
-            MSG_HIDE_BEHAVIOR_EDIT_UI,
-            nullptr,
-            nullptr
-        );
-        messageManager.MessageSend(
-            MSG_SHOW_BEHAVIOR_EDIT_UI,
-            &currentTargetIndex,
-            nullptr
-        );
-    }
+    IMessageManager& messageManager = MessageManager;
+    messageManager.MessageSend(
+        MSG_UPDATE_CAST_PALETTE,
+        (void*)currentTargetIndex,
+        nullptr
+    );
+    messageManager.MessageSend(
+        MSG_HIDE_BEHAVIOR_EDIT_UI,
+        nullptr,
+        nullptr
+    );
+    messageManager.MessageSend(
+        MSG_SHOW_BEHAVIOR_EDIT_UI,
+        &currentTargetIndex,
+        nullptr
+    );
 }
