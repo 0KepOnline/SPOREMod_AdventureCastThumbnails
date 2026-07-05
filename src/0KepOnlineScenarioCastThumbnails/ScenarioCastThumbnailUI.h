@@ -19,8 +19,8 @@ public:
     static const uint32_t SND_SKINNING_REMOVE = id("editor_trash");
 
     static const uint32_t MSG_UPDATE_CAST_PALETTE = 0x795b639;
-    static const uint32_t MSG_SHOW_BEHAVIOR_EDIT_UI = 0x7465518;
     static const uint32_t MSG_HIDE_BEHAVIOR_EDIT_UI = 0x7d11fe0;
+    static const uint32_t MSG_SHOW_BEHAVIOR_EDIT_UI = 0x7465518;
 
     ~ScenarioCastThumbnailUI();
     static ScenarioCastThumbnailUI* Get();
